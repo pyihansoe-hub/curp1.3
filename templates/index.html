@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Detection - Capture Mode</title>
+    <title>Currency Detection System</title>
     <style>
         * {
             margin: 0;
@@ -18,10 +18,10 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -29,14 +29,15 @@
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
         .main-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 30px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         /* Video Section */
@@ -44,8 +45,6 @@
             background: #000;
             border-radius: 8px;
             overflow: hidden;
-            position: relative;
-            min-height: 480px;
         }
 
         #videoFeed {
@@ -53,122 +52,101 @@
             display: block;
         }
 
-        /* Result Section (Like Upload) */
+        /* Result Section */
         .result-section {
-            background: #fafafa;
+            background: #f9f9f9;
             border: 2px solid #4CAF50;
             border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 15px;
+            margin-top: 15px;
             display: none;
-            animation: slideDown 0.3s ease;
         }
 
         .result-section.show {
             display: block;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .result-header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: #4CAF50;
             color: white;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
             text-align: center;
         }
 
         .result-header.unknown {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            background: #f39c12;
         }
 
         .result-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 5px;
         }
 
         .result-confidence {
-            font-size: 18px;
-            opacity: 0.9;
+            font-size: 14px;
         }
 
         .result-image {
-            width: 40%;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
 
         .predictions {
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .predictions h3 {
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .prediction-item {
-            background: #f9f9f9;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 5px;
         }
 
         .prediction-item.winner {
-            background: linear-gradient(135deg, #f0f9f0, #e8f5e9);
-            border: 2px solid #4CAF50;
+            background: #e8f5e9;
+            border-color: #4CAF50;
         }
 
         .prediction-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            font-size: 13px;
         }
 
         .currency-name {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .confidence-value {
-            font-size: 14px;
-            color: #666;
             font-weight: bold;
         }
 
         .confidence-bar-bg {
             width: 100%;
-            height: 24px;
+            height: 20px;
             background: #e0e0e0;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
         .confidence-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #81C784);
-            transition: width 0.5s ease;
+            background: #4CAF50;
+            color: white;
+            font-size: 11px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
+            padding-right: 8px;
         }
 
         .clear-button {
@@ -176,31 +154,26 @@
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
         .clear-button:hover {
             background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         /* Upload Section */
         .upload-section {
-            background: #fafafa;
+            background: #f9f9f9;
             border: 2px dashed #ddd;
             border-radius: 8px;
-            padding: 40px;
+            padding: 30px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .upload-section:hover {
@@ -213,34 +186,33 @@
         }
 
         .upload-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 5px;
         }
 
         /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .stat-box {
             background: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
+            padding: 15px;
+            border-radius: 4px;
             text-align: center;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
-            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         .stat-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #333;
         }
@@ -248,17 +220,16 @@
         /* Settings */
         .settings {
             background: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
         }
 
         .setting-label {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #666;
+            margin-bottom: 5px;
+            font-size: 12px;
         }
 
         input[type="range"] {
@@ -269,217 +240,171 @@
         .info-box {
             background: #e3f2fd;
             border-left: 4px solid #2196F3;
-            padding: 15px;
+            padding: 10px;
             border-radius: 4px;
-            margin-top: 20px;
+            font-size: 13px;
         }
 
         .info-box h3 {
             color: #1976D2;
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
 
         .info-box ul {
             margin-left: 20px;
             color: #555;
-            font-size: 14px;
-            line-height: 1.6;
         }
 
-        /* Guide Section - Added below without modifying existing code */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Guide Section Styles - Added below */
         .guide-section {
-            margin-top: 50px;
+            margin-top: 40px;
             padding-top: 30px;
             border-top: 2px solid #e0e0e0;
-            background: white;
         }
 
         .guide-title {
-            font-size: 24px;
-            color: #333;
+            text-align: center;
             margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        }
+
+        .guide-title span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .guide-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
+            margin: 30px 0;
         }
 
         .guide-card {
-            background: #fafafa;
-            border-radius: 12px;
+            background: white;
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
         }
 
         .guide-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            background: #fff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .guide-icon {
-            font-size: 32px;
+        .guide-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+            background: #f5f5f5;
+        }
+
+        .guide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .guide-card:hover .guide-image img {
+            transform: scale(1.05);
         }
 
         .guide-card h3 {
+            font-size: 20px;
             color: #333;
-            font-size: 18px;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #4CAF50;
+            font-weight: 600;
+            text-align: center;
         }
 
         .guide-list {
             list-style: none;
-            margin-bottom: 15px;
-            flex-grow: 1;
+            margin: 15px 0;
         }
 
         .guide-list li {
             color: #666;
-            font-size: 14px;
-            padding: 8px 0;
-            padding-left: 24px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            padding-left: 25px;
             position: relative;
             line-height: 1.5;
         }
 
         .guide-list li:before {
-            content: "✓";
+            content: "•";
             color: #4CAF50;
-            position: absolute;
-            left: 0;
             font-weight: bold;
+            position: absolute;
+            left: 8px;
+            font-size: 20px;
+        }
+
+        .guide-tip, .guide-note {
+            background: #f0f9f0;
+            border-left: 4px solid #4CAF50;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
         }
 
         .guide-note {
-            background: #e3f2fd;
-            border-left: 4px solid #2196F3;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #1976D2;
-        }
-
-        .guide-tip {
             background: #fff3e0;
-            border-left: 4px solid #ff9800;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #e65100;
+            border-left-color: #f39c12;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-left: 8px;
+        .guide-tip strong, .guide-note strong {
+            color: #2c3e50;
         }
 
-        .badge.green {
-            background: #4CAF50;
-            color: white;
+        .guide-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 15px;
         }
 
-        .badge.blue {
-            background: #2196F3;
-            color: white;
+        .guide-footer p {
+            margin-bottom: 8px;
         }
 
-        .badge.orange {
-            background: #ff9800;
-            color: white;
-        }
-
-        @media (max-width: 1200px) {
-            .guide-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 968px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 768px) {
             .guide-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
-.guide-image {
-    position: relative;
-    width: 100%;
-    height: 160px;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 15px;
-}
-
-.guide-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.guide-card:hover .guide-image img {
-    transform: scale(1.05);
-}
-
-.guide-image .badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    margin: 0;
-}
-
-.badge.purple {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.badge.orange {
-    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-    color: white;
-}
-
-.badge.yellow {
-    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-    color: white;
-}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💵 Currency Detection System - Capture Mode</h1>
+        <h1>Currency Detection System</h1>
 
         <div class="main-grid">
             <!-- Left Column -->
             <div>
-                <!-- Video Feed (Always Visible) -->
                 <div class="video-section">
                     <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Camera Feed">
                 </div>
 
-                <!-- Camera Result Display -->
                 <div class="result-section" id="cameraResult">
                     <div class="result-header" id="cameraResultHeader">
                         <div class="result-title" id="cameraResultTitle">USD</div>
@@ -490,33 +415,34 @@
                         <h3>All Predictions:</h3>
                         <div id="cameraResultPredictions"></div>
                     </div>
-                    <button class="clear-button" onclick="clearResult()">✓ Next Detection</button>
+                    <button class="clear-button" onclick="clearResult()">Next Detection</button>
                 </div>
 
-                <!-- Upload Section -->
                 <div class="upload-section" id="uploadSection">
                     <input type="file" id="fileInput" accept="image/*">
                     <div class="upload-icon">📁</div>
-                    <div>Click to upload currency image for instant detection</div>
+                    <div>Click to upload image</div>
                 </div>
 
-                <!-- Upload Result Display -->
                 <div class="result-section" id="uploadResult">
                     <div class="result-header" id="uploadResultHeader">
                         <div class="result-title" id="uploadResultTitle">EUR</div>
                         <div class="result-confidence" id="uploadResultConf">95.2% Confidence</div>
                     </div>
                     <img id="uploadResultImage" class="result-image" alt="Uploaded Currency">
-                    <button class="clear-button" onclick="clearUploadResult()">✓ Clear</button>
+                    <div class="predictions">
+                        <h3>All Predictions:</h3>
+                        <div id="uploadResultPredictions"></div>
+                    </div>
+                    <button class="clear-button" onclick="clearUploadResult()">Clear</button>
                 </div>
             </div>
 
             <!-- Right Column -->
             <div>
-                <!-- Stats -->
                 <div class="stats">
                     <div class="stat-box">
-                        <div class="stat-label">Total Detections</div>
+                        <div class="stat-label">Detections</div>
                         <div class="stat-value" id="totalDetections">0</div>
                     </div>
                     <div class="stat-box">
@@ -525,96 +451,82 @@
                     </div>
                 </div>
 
-                <!-- Settings -->
-                <!-- <div class="settings">
+                <div class="settings">
                     <div class="setting-label">
-                        <span>Minimum Confidence</span>
-                        <span id="thresholdValue">85%</span>
+                        <span>Confidence Threshold</span>
+                        <span id="thresholdValue">90%</span>
                     </div>
-                    <input type="range" id="thresholdSlider" min="50" max="95" value="85" step="5">
-                    <small style="color: #999; font-size: 11px; display: block; margin-top: 5px;">
-                        Higher = More accurate but fewer detections
-                    </small>
-                </div> -->
+                    <input type="range" id="thresholdSlider" min="50" max="95" value="90" step="5">
+                </div>
 
-                <!-- Info Box -->
                 <div class="info-box">
-                    <h3>📋 Quick Start</h3>
+                    <h3>How to Use</h3>
                     <ul>
-                        <li><strong>Camera Mode:</strong> Hold currency steady for 2 seconds</li>
-                        <li><strong>Result:</strong> Shows automatically below camera</li>
-                        <li><strong>Clear:</strong> Click "Next Detection" button</li>
-                        <li><strong>Upload:</strong> Upload image for instant detection</li>
+                        <li>Hold currency in frame for 2 seconds</li>
+                        <li>Shows only if confidence ≥ 90%</li>
+                        <li>Shows "Unknown" if below 90%</li>
+                        <li>Click "Next Detection" to scan again</li>
+                        <li>Upload image for instant detection</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- Guide Section - Added below, no changes to existing code -->
-<div class="guide-section">
-    <div class="guide-title">
-        <span>📚 လမ်းညွန်</span>
+        <div class="guide-section">
+            <div class="guide-title">
+                <span>📚 လမ်းညွှန်</span>
+            </div>
+            
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <img src="{{ url_for('static', filename='img/a.png') }}" alt="Upload currency image">
+                    </div>
+                    <h3>အတည့်ရိုက်ခြင်း</h3>
+                    <ul class="guide-list">
+                        <li>ပိုက်ဆံကို အလျားလိုက် Laptop ကင်မရာသို့ပြပေးပါ</li>
+                    </ul>
+                    <div class="guide-tip">
+                        <strong>📌 ရလဒ် :</strong> ၉၅% တိကျမှု
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format" alt="Statistics dashboard">
+                    </div>
+                    <h3>ဒေါင်လိုက် (သို့) ဇောက်ထိုးရိုက်ခြင်း</h3>
+                    <ul class="guide-list">
+                        <li>ပိုက်ဆံကို ဒေါင်လိုက် (သို့) ဇောက်ထိုး Laptop ကင်မရာသို့ပြလျှင်</li>
+                    </ul>
+                    <div class="guide-note">
+                        <strong>📌 ရလဒ် :</strong> ၈၅ % တိကျမှု
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format" alt="Confidence meter">
+                    </div>
+                    <h3>အလင်းရောင်</h3>
+                    <ul class="guide-list">
+                        <li>ပိုက်ဆံကို အလင်း (သို့) အမှောင်များသောနေရာတွင် ရိုက်လျှင်</li>
+                    </ul>
+                    <div class="guide-note">
+                        <strong>📌 ရလဒ် :</strong> ၃၅ % တိကျမှု
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Footer -->
+            <div class="guide-footer">
+                <p>Currency Vision, Currency Recognition System By Group 11, UCSTT</p>
+            </div>
+        </div>
     </div>
-    
-    <div class="guide-grid">
-      
-      
-        <div class="guide-card">
-            <div class="guide-image">
-                <img src="{{ url_for('static', filename='img/a.png') }}" alt="Upload currency image">
-                
-            </div>
-            <h3>အတည့်ရိုက်ခြင်း</h3>
-            <ul class="guide-list">
-                <li>ပိုက်ဆံကို ‌အလျားလိုက် Laptop ကင်မရာသို့ပြပေးပါ</li>
-            </ul>
-            <div class="guide-tip">
-                <strong>📌 ရလဒ်  :</strong> ၉၅% တိကျမှု
-            </div>
-        </div>
-
-        <!-- Card 3: Statistics -->
-        <div class="guide-card">
-            <div class="guide-image">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format" alt="Statistics dashboard">
-                
-            </div>
-            <h3>ဒေါင်လိုက် (သို့) ဇောက်ထိုးရိုက်ခြင်း</h3>
-            <ul class="guide-list">
-                <li>ပိုက်ဆံကို ဒေါင်လိုက် (သို့) ဇောက်ထိုး Laptop ကင်မရာသို့ပြလျှင်</li>
-                
-            </ul>
-            <div class="guide-note">
-                <strong>📌 ရလဒ်  :</strong> ၈၅ % တိကျမှု
-            </div>
-        </div>
-
-        <!-- Card 4: Confidence Scores -->
-        <div class="guide-card">
-            <div class="guide-image">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format" alt="Confidence meter">
-                
-            </div>
-            <h3>အလင်းရောင်</h3>
-            <ul class="guide-list">
-                <li>ပိုက်ဆံကို အလင်း (သို့) အမှောင်များသောနေရာတွင် ရိုက်လျှင်</li>
-               
-            </ul>
-            <div class="guide-note">
-                <strong>📌 ရလဒ်  :</strong> ၃၅ % တိကျမှု
-            </div>
-        </div>
-
-
-    <!-- Quick Reference Footer -->
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; color: #666; font-size: 14px;">
-        <p style="margin-bottom: 8px;">Currency Vision , Currency Recognition System By Group 11, UCSTT</p>
-        
-    </div>
-</div>
 
     <script>
-        // Check for camera results every 500ms
         function checkForCameraResults() {
             fetch('/result')
                 .then(response => response.json())
@@ -633,32 +545,25 @@
             const image = document.getElementById('cameraResultImage');
             const predictions = document.getElementById('cameraResultPredictions');
 
-            // Show result section
             resultSection.classList.add('show');
-
-            // Set image
             image.src = 'data:image/jpeg;base64,' + imageBase64;
 
-            // Set header style and text
             if (result.is_unknown) {
                 header.classList.add('unknown');
-                title.textContent = result.class;
-                conf.textContent = result.unknown_reason || 'Not Valid Currency';
+                title.textContent = 'Unknown';
+                conf.textContent = 'Below 90% Confidence';
             } else {
                 header.classList.remove('unknown');
-                title.textContent = result.class;
+                title.textContent = result.original_class;
                 conf.textContent = `${(result.confidence * 100).toFixed(1)}% Confidence`;
             }
 
-            // Show all predictions
-            displayPredictions(result.all_predictions, predictions, result.class);
+            displayPredictions(result.all_predictions, predictions, result.original_class);
         }
 
         function clearResult() {
-            const resultSection = document.getElementById('cameraResult');
-            resultSection.classList.remove('show');
+            document.getElementById('cameraResult').classList.remove('show');
             
-            // Tell server to clear
             fetch('/clear_result', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'}
@@ -668,10 +573,9 @@
         function displayPredictions(predictions, container, winner) {
             let html = '';
             
-            // Convert to array and sort
             let predArray = [];
             for (let className in predictions) {
-                if (className !== 'not_currency') {  // Hide not_currency from display
+                if (className !== 'not_currency') {
                     predArray.push({
                         class: className,
                         confidence: predictions[className]
@@ -680,18 +584,17 @@
             }
             predArray.sort((a, b) => b.confidence - a.confidence);
 
-            // Show only predictions > 5%
-            predArray = predArray.filter(p => p.confidence > 0.05);
-
-            predArray.forEach(pred => {
-                const percentage = (pred.confidence * 100).toFixed(1);
-                const isWinner = pred.class === winner;
+            // Show only top prediction
+            if (predArray.length > 0) {
+                const top = predArray[0];
+                const percentage = (top.confidence * 100).toFixed(1);
+                const isWinner = top.class === winner;
                 
                 html += `
                     <div class="prediction-item ${isWinner ? 'winner' : ''}">
                         <div class="prediction-header">
-                            <div class="currency-name">${pred.class}</div>
-                            <div class="confidence-value">${percentage}%</div>
+                            <span class="currency-name">${top.class}</span>
+                            <span>${percentage}%</span>
                         </div>
                         <div class="confidence-bar-bg">
                             <div class="confidence-bar-fill" style="width: ${percentage}%">
@@ -700,24 +603,22 @@
                         </div>
                     </div>
                 `;
-            });
+            }
             
             container.innerHTML = html;
         }
 
-        // Update stats
         function updateStats() {
             fetch('/stats')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('totalDetections').textContent = data.total_detections;
                     const avgConf = data.avg_confidence > 0 ? 
-                        (data.avg_confidence * 100).toFixed(1) + '%' : '0%';
+                        (data.avg_confidence).toFixed(1) + '%' : '0%';
                     document.getElementById('avgConfidence').textContent = avgConf;
                 });
         }
 
-        // Threshold slider
         const thresholdSlider = document.getElementById('thresholdSlider');
         const thresholdValue = document.getElementById('thresholdValue');
 
@@ -732,7 +633,6 @@
             });
         });
 
-        // Upload functionality
         const uploadSection = document.getElementById('uploadSection');
         const fileInput = document.getElementById('fileInput');
 
@@ -765,40 +665,37 @@
             const title = document.getElementById('uploadResultTitle');
             const conf = document.getElementById('uploadResultConf');
             const image = document.getElementById('uploadResultImage');
+            const predictions = document.getElementById('uploadResultPredictions');
 
-            // Show result
             resultSection.classList.add('show');
-
-            // Set image
             image.src = 'data:image/jpeg;base64,' + data.image;
 
-            // Find highest confidence prediction
-            let highest = null;
-            for (let i = 0; i < data.predictions.length; i++) {
-                if (!highest || data.predictions[i].confidence > highest.confidence) {
-                    highest = data.predictions[i];
-                }
-            }
-
-            // Check if highest confidence is below 90%
-            const THRESHOLD = 0.9; // 90% confidence threshold
-            
-            if (!highest || highest.confidence < THRESHOLD || data.is_unknown) {
+            if (data.is_unknown) {
                 header.classList.add('unknown');
                 title.textContent = 'Unknown';
-                conf.textContent = 'No Currency Detected (Below 90% Confidence)';
+                conf.textContent = 'Below 90% Confidence';
             } else {
                 header.classList.remove('unknown');
-                title.textContent = highest.class;
-                conf.textContent = `${(highest.confidence * 100).toFixed(1)}% Confidence`;
+                title.textContent = data.best_match;
+                conf.textContent = `${(data.confidence * 100).toFixed(1)}% Confidence`;
             }
+
+            let predObj = {};
+            data.predictions.forEach(p => {
+                predObj[p.class] = p.confidence;
+            });
+            
+            // Show only top prediction for upload result too
+            let topPred = data.predictions.sort((a, b) => b.confidence - a.confidence)[0];
+            let singlePredObj = {};
+            singlePredObj[topPred.class] = topPred.confidence;
+            displayPredictions(singlePredObj, predictions, data.best_match);
         }
 
         function clearUploadResult() {
             document.getElementById('uploadResult').classList.remove('show');
         }
 
-        // Poll for results and stats
         setInterval(checkForCameraResults, 500);
         setInterval(updateStats, 1000);
         updateStats();
