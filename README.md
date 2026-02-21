@@ -32,3 +32,5 @@ and add many and clean images for each class like 500+ images for each folder,
 
 run train_advanced.py to trian the dataset and it will save the model and you can run the system! 
 Declaimer : this project for education purpose only and just wanted to show how can we apply computer vision in system, this project have many weaknesses as it is created by new junior coders and some of codes might have been modified by AI (deepseek, Claude especially), we are sorry if our system couldn't achieve your needs, use it for education purpose only!
+
+model is still weak at 200, 500, 1000 Kyats, try Training many pictures!! let you pc work for many hours :3
