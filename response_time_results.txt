@@ -1,0 +1,11 @@
+CURRENCY RECOGNITION SYSTEM - RESPONSE TIME RESULTS
+==================================================
+
+Model Loading: 0.69 seconds
+Single Frame Detection: 0.079 seconds (79.2 ms)
+  - Min: 0.046 s, Max: 0.896 s
+Stabilization Period: 2.00 seconds
+Total Detection Cycle: 2.08 seconds
+  - Min: 2.05 s, Max: 2.90 s
+Upload Prediction: 0.075 seconds (74.8 ms)
+  - Min: 0.047 s, Max: 0.212 s

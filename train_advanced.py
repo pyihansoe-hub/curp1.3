@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
+
 # Configuration
 IMG_SIZE = 224
 BATCH_SIZE = 16
