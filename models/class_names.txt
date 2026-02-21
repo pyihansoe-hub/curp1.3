@@ -5,3 +5,5 @@
 50 Kyats
 500 Kyats
 5000 Kyats
+New 1000 Kyats
+New 500 Kyats

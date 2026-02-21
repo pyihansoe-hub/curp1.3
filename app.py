@@ -1,11 +1,3 @@
-"""
-ADVANCED CURRENCY DETECTION WEB SERVER - FIXED VERSION
-- Live webcam feed with green border detection
-- 2-second detection before showing result
-- Shows only highest confidence currency (Unknown if below 80%)
-- Automatic capture and storage of detected images
-- FIXED: Model loading, confidence tracking, and display issues
-"""
 
 from flask import Flask, render_template, Response, jsonify, request
 from flask_cors import CORS
@@ -33,7 +25,7 @@ CORS(app)
 MODEL_PATH = 'models/currency_model.h5'
 IMG_SIZE = 224
 CONFIDENCE_THRESHOLD = 0.97
-UNKNOWN_THRESHOLD = 0.80
+UNKNOWN_THRESHOLD = 0.95
 CAPTURE_DIR = 'captured_images'
 AUTO_CAPTURE_ENABLED = True
 STABILIZATION_SECONDS = 2
